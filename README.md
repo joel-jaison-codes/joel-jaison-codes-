@@ -1,12 +1,24 @@
-# ⚡ MIDICHLORIAN.EXE
+<div align="center">
 
-> MOLECULAR BIOLOGIST // BIOINFORMATICIAN  
-> LEVEL 01 // PhD HUNTER
+```text
+        INITIALIZING...
 
-### ⚔️ MAIN QUEST
 
-**INNOVATE NEW HORIZONS IN SCIENCE**
+ ███╗   ███╗██╗██████╗ ██╗ ██████╗██╗  ██╗
+ ████╗ ████║██║██╔══██╗██║██╔════╝██║  ██║
+ ██╔████╔██║██║██║  ██║██║██║     ███████║
+ ██║╚██╔╝██║██║██║  ██║██║██║     ██╔══██║
+ ██║ ╚═╝ ██║██║██████╔╝██║╚██████╗██║  ██║
+ ╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-> Legendary Objective: **ONE PhD**
 
-[ 🚀 ENTER THE NEXUS CYBERDECK → ](https://joel-jaison-codes.github.io/joel-jaison-codes-/)
+        M I D I C H L O R I A N . E X E
+
+
+        BIOLOGICAL CORE ........ ONLINE
+        COMPUTATIONAL CORE ..... BUILDING
+        NEURAL CORE ............ ONLINE
+        PhD PROTOCOL ........... LOCKED
+
+
+              [ ACCESS NEXUS ]
