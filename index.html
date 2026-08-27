@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIDICHLORIAN.EXE // NEXUS CYBERDECK</title>
+<meta name="description" content="MIDICHLORIAN.EXE — interactive molecular biology cyberdeck.">
+<style>
+:root{--bg:#02050a;--panel:rgba(4,12,19,.82);--cyan:#00f6ff;--green:#00ff9d;--pink:#ff2bd6;--gold:#ffd34d;--red:#ff405e;--blue:#559dff;--text:#dcfff5;--muted:#6f9d94;--line:rgba(0,246,255,.25)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+body{overflow-x:hidden;background-image:radial-gradient(circle at 10% 0%,rgba(0,246,255,.12),transparent 25%),radial-gradient(circle at 90% 15%,rgba(255,43,214,.09),transparent 25%),radial-gradient(circle at 50% 100%,rgba(0,255,157,.07),transparent 30%)}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(0,246,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(0,246,255,.055) 1px,transparent 1px);background-size:30px 30px;mask-image:linear-gradient(to bottom,#000,transparent)}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.018) 4px);mix-blend-mode:screen}
+button,input{font:inherit}.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:9px 14px;background:rgba(1,5,9,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.logo{font-weight:900;color:var(--green);letter-spacing:2px;text-shadow:0 0 13px rgba(0,255,157,.65);white-space:nowrap}.net{font-size:10px;color:var(--muted)}
+nav{display:flex;gap:5px;overflow:auto}nav button{color:var(--text);background:linear-gradient(135deg,rgba(0,246,255,.09),rgba(255,43,214,.07));border:1px solid var(--line);padding:7px 10px;cursor:pointer;white-space:nowrap;clip-path:polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px)}
+nav button:hover,nav button.active{color:var(--green);border-color:var(--green);box-shadow:0 0 14px rgba(0,255,157,.18)}
+.screen{display:none;max-width:1500px;margin:auto;padding:28px 18px 80px}.screen.active{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(8px);filter:blur(3px)}to{opacity:1;transform:none;filter:none}}
+.panel{background:linear-gradient(145deg,rgba(0,246,255,.065),rgba(255,43,214,.045) 52%,rgba(0,255,157,.045));border:1px solid var(--line);box-shadow:0 0 25px rgba(0,246,255,.08),inset 0 0 35px rgba(0,246,255,.025);padding:18px;position:relative;clip-path:polygon(0 10px,10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px))}
+.panel:after{content:"";position:absolute;inset:4px;border:1px solid rgba(255,43,214,.05);pointer-events:none}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.c4{grid-column:span 4}.c6{grid-column:span 6}.c8{grid-column:span 8}.c12{grid-column:span 12}
+.kicker{color:var(--cyan);font-size:11px;letter-spacing:2px}.muted{color:var(--muted)}h1{font-size:clamp(40px,7vw,94px);line-height:.86;margin:14px 0;text-shadow:0 0 14px var(--cyan),0 0 42px rgba(0,246,255,.3)}h2{color:var(--green);text-shadow:0 0 10px rgba(0,255,157,.3)}h3{color:var(--cyan)}
+.glitch{position:relative}.glitch:after{content:attr(data-text);position:absolute;left:2px;top:0;color:var(--pink);opacity:.32;clip-path:inset(45% 0 38% 0);animation:g 2.4s infinite}@keyframes g{0%,88%,100%{transform:none}90%{transform:translate(3px,-1px)}92%{transform:translate(-2px,1px)}94%{transform:translate(1px)}}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;min-height:78vh;align-items:center}.hero-copy{padding:15px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:6px 8px;border:1px solid rgba(0,255,157,.3);color:var(--green);background:rgba(0,255,157,.05);font-size:10px}
+.viewer{height:610px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 45%,rgba(0,246,255,.09),transparent 35%),#01070c}.viewer canvas{width:100%;height:100%;display:block}.viewer .hud{position:absolute;inset:0;pointer-events:none}.corner{position:absolute;width:42px;height:42px;border-color:var(--cyan);border-style:solid;opacity:.75}.tl{top:10px;left:10px;border-width:2px 0 0 2px}.tr{top:10px;right:10px;border-width:2px 2px 0 0}.bl{bottom:10px;left:10px;border-width:0 0 2px 2px}.br{bottom:10px;right:10px;border-width:0 2px 2px 0}.scan{position:absolute;left:5%;right:5%;top:18%;height:1px;background:var(--green);box-shadow:0 0 10px var(--green);opacity:.5;animation:scan 4s linear infinite}@keyframes scan{0%{top:15%}50%{top:80%}100%{top:15%}}
+.viewer-label{position:absolute;left:14px;bottom:12px;color:var(--green);font-size:10px;text-shadow:0 0 8px var(--green)}.controls{position:absolute;right:12px;bottom:10px;display:flex;gap:5px;pointer-events:auto}.controls button{background:rgba(1,6,9,.72);border:1px solid var(--line);color:var(--cyan);padding:6px 8px;cursor:pointer}.controls button:hover{border-color:var(--pink);color:var(--pink)}
+.stat{margin:13px 0}.stathead{display:flex;justify-content:space-between;font-size:11px}.bar{height:9px;background:#061018;border:1px solid rgba(0,246,255,.15);margin-top:5px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green),var(--pink));box-shadow:0 0 12px rgba(0,246,255,.5);width:var(--w);animation:charge 1s ease-out}@keyframes charge{from{width:0}}
+.card{padding:15px;border:1px solid rgba(0,246,255,.18);background:linear-gradient(135deg,rgba(0,246,255,.055),rgba(255,43,214,.05));transition:.18s;cursor:pointer}.card:hover{transform:translateY(-3px);border-color:var(--green);box-shadow:0 0 22px rgba(0,255,157,.12)}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.quest{border-left:3px solid var(--pink);padding:12px 15px;margin:10px 0}.danger{border-color:var(--red)!important}.gold{color:var(--gold)}.red{color:var(--red)}.big{font-size:clamp(32px,5vw,62px);color:var(--gold);text-shadow:0 0 15px rgba(255,211,77,.35)}
+.timeline{border-left:1px solid var(--line);padding-left:22px}.event{margin:26px 0;position:relative}.event:before{content:"";position:absolute;left:-28px;top:4px;width:9px;height:9px;border:1px solid var(--green);background:var(--bg);box-shadow:0 0 10px var(--green)}
+.terminal{height:330px;overflow:auto;background:#010407;border:1px solid rgba(0,255,157,.25);padding:15px;color:#aaffdf;white-space:pre-wrap}.termrow{display:flex;gap:7px;margin-top:8px}.termrow input{flex:1;background:#02080b;border:1px solid var(--line);color:var(--green);padding:10px}.termrow button{background:#061017;border:1px solid var(--green);color:var(--green);padding:10px 14px;cursor:pointer}
+.footer{text-align:center;color:var(--muted);font-size:10px;padding:28px}.footer a{color:var(--cyan)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.76);display:none;place-items:center;z-index:100;padding:18px}.modal.open{display:grid}.modalbox{max-width:700px;width:100%;max-height:80vh;overflow:auto;background:linear-gradient(145deg,#06131a,#0b0712);border:1px solid var(--cyan);box-shadow:0 0 45px rgba(0,246,255,.18);padding:20px}.close{float:right;background:none;border:1px solid var(--line);color:var(--cyan);cursor:pointer;padding:4px 8px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.viewer{height:480px}.c4,.c6,.c8{grid-column:span 12}.top{position:relative;align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="logo">◈ MIDICHLORIAN.EXE</div>
+<nav>
+<button class="active" data-screen="home">NEXUS</button>
+<button data-screen="stats">ATTRIBUTES</button>
+<button data-screen="quests">QUESTS</button>
+<button data-screen="research">RESEARCH</button>
+<button data-screen="academy">ACADEMIC</button>
+<button data-screen="arsenal">LOADOUT</button>
+<button data-screen="terminal">TERMINAL</button>
+</nav>
+<div class="net">NEXUS // ONLINE ◉</div>
+</header>
+
+<section id="home" class="screen active">
+<div class="hero">
+<div class="panel viewer">
+<div id="model"></div><div class="hud"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i><i class="scan"></i><div class="viewer-label">HOLOGRAPHIC SUBJECT // DRAG TO ROTATE // WHEEL TO ZOOM</div><div class="controls"><button id="spin">AUTO: ON</button><button id="reset">RESET</button></div></div>
+</div>
+<div class="hero-copy">
+<div class="kicker">NEURAL BIOLOGICAL INTELLIGENCE ENTITY // BUILD 2.077</div>
+<h1 class="glitch" data-text="MIDICHLORIAN.EXE">MIDICHLORIAN.EXE</h1>
+<h3>MOLECULAR BIOLOGIST // BIOINFORMATICIAN</h3>
+<div class="chips"><span class="chip">LEVEL 01 — PhD HUNTER</span><span class="chip">SCIENCE ALIGNMENT</span><span class="chip">COFFEE: CRITICAL</span></div>
+<div class="panel" style="margin-top:18px"><div class="kicker">PRIMARY DIRECTIVE</div><h2>⚔ INNOVATE NEW HORIZONS IN SCIENCE</h2><p>Acquire the legendary artifact known as <span class="big">ONE PhD</span>.</p><p class="muted">A lone molecular biologist entered the computational realm. Python was stronger than expected. The grind continues.</p></div>
+<div style="margin-top:15px" class="chips"><span class="chip">🧬 BIO CORE: ONLINE</span><span class="chip">💻 COMPUTE: BUILDING</span><span class="chip">🎨 CREATIVITY: OVERFLOW</span></div>
+</div>
+</div>
+</section>
+
+<section id="stats" class="screen">
+<h2>// CHARACTER ATTRIBUTES</h2>
+<div class="grid"><div class="panel c8">
+<div class="stat"><div class="stathead"><span>🧬 Molecular Biology</span><b>45</b></div><div class="bar"><div class="fill" style="--w:45%"></div></div></div>
+<div class="stat"><div class="stathead"><span>🧪 Wet Lab</span><b>69</b></div><div class="bar"><div class="fill" style="--w:69%"></div></div></div>
+<div class="stat"><div class="stathead"><span>💻 Bioinformatics</span><b>32</b></div><div class="bar"><div class="fill" style="--w:32%"></div></div></div>
+<div class="stat"><div class="stathead"><span>🐍 Python</span><b>21 // XP GRIND</b></div><div class="bar"><div class="fill" style="--w:21%"></div></div></div>
+<div class="stat"><div class="stathead"><span>📊 Data Analysis</span><b>67</b></div><div class="bar"><div class="fill" style="--w:67%"></div></div></div>
+<div class="stat"><div class="stathead"><span>🧫 Microbiology</span><b>48</b></div><div class="bar"><div class="fill" style="--w:48%"></div></div></div>
+<div class="stat"><div class="stathead"><span>🔬 Research</span><b>78</b></div><div class="bar"><div class="fill" style="--w:78%"></div></div></div>
+<div class="stat"><div class="stathead"><span>📝 Scientific Writing</span><b>65</b></div><div class="bar"><div class="fill" style="--w:65%"></div></div></div>
+<div class="stat"><div class="stathead"><span>🎨 Creativity / Design</span><b>1000/100 ⚠ OVERFLOW</b></div><div class="bar"><div class="fill" style="--w:100%"></div></div></div>
+</div><div class="panel c4"><h2>🧠 PROBLEM SOLVING</h2><div class="big">PROBLEM<br>MAKER</div><p class="muted">Passive ability permanently equipped.</p><hr style="border-color:rgba(0,246,255,.12)"><h3>🐍 PYTHON</h3><p>LEVEL 12 / 100</p><p style="color:var(--green)">GRINDING XP...</p></div></div>
+</section>
+
+<section id="quests" class="screen">
+<h2>// QUEST BOARD</h2>
+<div class="panel quest"><h3>🟢 ACTIVE QUEST // RID DATABASE</h3><p><b>OBJECTIVE:</b> Structure integration-site data, audit biological metadata, annotate genes and build reproducible analysis workflows.</p><p><b>STATUS:</b> ACTIVE &nbsp; // &nbsp; <b>THREAT:</b> HIGH &nbsp; // &nbsp; <b>XP:</b> ???</p></div>
+<h3>🟡 SIDE QUESTS // REPOSITORY MATRIX</h3><div class="cards">
+<a class="card" href="https://github.com/joel-jaison-codes/Calculator-App" target="_blank"><h3>Calculator-App ↗</h3><small>Python training simulation</small></a>
+<a class="card" href="https://github.com/joel-jaison-codes/Haemocytometer-Counter-App" target="_blank"><h3>Haemocytometer-Counter-App ↗</h3><small>Cell counting subsystem</small></a>
+<a class="card" href="https://github.com/joel-jaison-codes/DNA-Sequence-Composition-Analyzer" target="_blank"><h3>DNA-Sequence-Composition-Analyzer ↗</h3><small>Sequence analysis subsystem</small></a>
+<div class="card"><h3>Numerinator v69</h3><small>Calculation / Python experiment</small></div>
+<div class="card"><h3>ensemble_analyser</h3><small>Ensembl-oriented genomic analysis</small></div>
+</div>
+<div class="panel danger" style="margin-top:20px"><h2 class="red">☠ BOSS BATTLE // PhD APPLICATIONS</h2><p>HP: <span class="red">████████████████████ 100%</span></p><p>SPECIAL ATTACK: <b>"WE REGRET TO INFORM YOU..."</b></p><p>WEAKNESS: <b>PERSISTENCE</b></p><p>VICTORY CONDITION: <span class="big">ONE PhD</span></p></div>
+</section>
+
+<section id="research" class="screen"><h2>// RESEARCH ARCHIVE</h2><div class="timeline">
+<div class="event"><h3>🦟 Plant Extracts Against <i>Aedes albopictus</i></h3><p>Research on bioactive compounds from <i>Ocimum tenuiflorum</i> as biocontrol agents against <i>Aedes albopictus</i>, including larvicidal activity and surface-tension dynamics.</p><small class="muted">LARVICIDAL BIOASSAY · LC50 / LC99 · TENSIOMETRY · WILHELMY PLATE · GC-MS · SEM</small></div>
+<div class="event"><h3>🧬 Vector Biology Research</h3><p>Laboratory research involving mosquito biology and experimental investigation of biological control strategies.</p></div>
+<div class="event"><h3>🧫 Molecular & Microbiology Training</h3><p>PCR-based workflows, cell-related laboratory work, antimicrobial susceptibility testing, biofilm assays, spectrophotometry and quantitative image analysis.</p></div>
+</div></section>
+
+<section id="academy" class="screen"><h2>// ACADEMIC DATABASE</h2><div class="cards">
+<div class="card"><h3>🎓 INTEGRATED MSc IN LIFE SCIENCES</h3><p>Central University of Tamil Nadu</p><small>GRADUATED 2024 · CGPA 8.51</small></div>
+<div class="card"><h3>⚔ GATE QUALIFIED</h3><small>ACHIEVEMENT UNLOCKED</small></div>
+<div class="card"><h3>🏅 DISSERTATION PRESENTATION</h3><p>Consolation prize.</p><small>ACHIEVEMENT UNLOCKED</small></div>
+<div class="card"><h3>🎤 ICB-24 / BioVision</h3><p>Research presentation.</p><small>14 MARCH 2024</small></div>
+</div><h2 style="margin-top:30px">// PhD TARGET CONSTELLATION</h2><div class="cards">
+<div class="card">🧬 Bioinformatics</div><div class="card">💻 Computational Biology</div><div class="card">🔬 Molecular Biology</div><div class="card">🦠 Virology</div><div class="card">🧬 Gene Therapy</div><div class="card">🧫 Cancer Biology</div>
+</div></section>
+
+<section id="arsenal" class="screen"><h2>// LOADOUT // SCIENTIFIC ARSENAL</h2><div class="grid">
+<div class="panel c6"><h3>🧪 WET-LAB MODULES</h3><p>PCR · PBMC Isolation · MNC Isolation · Cell Culture · Antimicrobial Susceptibility · Biofilm Assays · Spectrophotometry · Tensiometry · SEM · GC-MS</p></div>
+<div class="panel c6"><h3>💻 COMPUTATIONAL MODULES</h3><p>Python · Biopython · Pandas · NumPy · Matplotlib · Jupyter · Linux · Git · GitHub · UCSC · GTEx · ImageJ/Fiji · SPSS · Jamovi · SnapGene</p></div>
+</div><div class="panel" style="margin-top:15px"><h3>🌌 SCIENTIST SKILL TREE</h3><pre style="color:var(--green);overflow:auto">
+                         THE SCHOLAR
+                              │
+             ┌────────────────┴────────────────┐
+             │                                 │
+       MOLECULAR BIO                     COMPUTATIONAL BIO
+             │                                 │
+     ┌───────┼────────┐              ┌─────────┼────────┐
+  VIROLOGY  GENE    CANCER       BIOINFO     PYTHON     DATA
+           THERAPY  BIOLOGY         │           │
+                                    └───────┬───┘
+                                            │
+                                      ONE PhD [LOCKED]
+</pre></div></section>
+
+<section id="terminal" class="screen"><h2>// NETRUNNER TERMINAL</h2><div class="terminal" id="out">MIDICHLORIAN.EXE NEXUS TERMINAL v2.077
+---------------------------------------
+Type 'help' and press ENTER.
+
+</div><div class="termrow"><input id="cmd" autocomplete="off" spellcheck="false" placeholder="enter command..."><button id="exec">EXECUTE</button></div></section>
+</body>
+</html>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/loaders/GLTFLoader.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/controls/OrbitControls.js';
+
+const buttons=[...document.querySelectorAll('nav button')], screens=[...document.querySelectorAll('.screen')];
+function show(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));buttons.forEach(b=>b.classList.toggle('active',b.dataset.screen===id));location.hash=id;scrollTo({top:0,behavior:'smooth'})}
+buttons.forEach(b=>b.onclick=()=>show(b.dataset.screen));
+if(location.hash && document.getElementById(location.hash.slice(1))) show(location.hash.slice(1));
+
+const mount=document.getElementById('model');
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x01070c,.055);
+const camera=new THREE.PerspectiveCamera(38,1,.01,100);
+camera.position.set(0,0.35,1.8);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(mount.clientWidth,mount.clientHeight); renderer.outputColorSpace=THREE.SRGBColorSpace;
+mount.appendChild(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.enablePan=false;controls.minDistance=.65;controls.maxDistance=3.2;controls.target.set(0,0,0);
+scene.add(new THREE.AmbientLight(0x8affee,1.7));
+const key=new THREE.PointLight(0x00f6ff,35,4);key.position.set(1.4,1.5,1.4);scene.add(key);
+const rim=new THREE.PointLight(0xff2bd6,30,4);rim.position.set(-1.4,.7,-1.2);scene.add(rim);
+const fill=new THREE.PointLight(0x00ff9d,20,3);fill.position.set(0,-1,1);scene.add(fill);
+const ring=new THREE.Mesh(new THREE.TorusGeometry(.58,.006,8,128),new THREE.MeshBasicMaterial({color:0x00ff9d,transparent:true,opacity:.55}));
+ring.rotation.x=Math.PI/2;ring.position.y=-.62;scene.add(ring);
+const ring2=ring.clone();ring2.material=ring.material.clone();ring2.material.color.set(0xff2bd6);ring2.scale.setScalar(.78);ring2.position.y=-.6;scene.add(ring2);
+let model3d=null,auto=true;
+const loader=new GLTFLoader();
+loader.load('./assets/midichlorian.glb',g=>{
+ model3d=g.scene;
+ const box=new THREE.Box3().setFromObject(model3d), size=box.getSize(new THREE.Vector3()), center=box.getCenter(new THREE.Vector3());
+ model3d.position.sub(center);
+ const scale=1.05/Math.max(size.x,size.y,size.z);model3d.scale.setScalar(scale);
+ model3d.position.y=-.02;scene.add(model3d);
+},undefined,e=>{mount.innerHTML='<div style="padding:30px;color:#ff405e">MODEL LINK ERROR // check assets/midichlorian.glb</div>'});
+function resize(){const w=mount.clientWidth,h=mount.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)}
+addEventListener('resize',resize);resize();
+document.getElementById('spin').onclick=()=>{auto=!auto;document.getElementById('spin').textContent='AUTO: '+(auto?'ON':'OFF')};
+document.getElementById('reset').onclick=()=>{camera.position.set(0,.35,1.8);controls.target.set(0,0,0);controls.update();if(model3d)model3d.rotation.set(0,0,0)};
+function animate(t){requestAnimationFrame(animate);if(model3d&&auto)model3d.rotation.y+=.004;ring.rotation.z+=.004;ring2.rotation.z-=.006;controls.update();renderer.render(scene,camera)} animate();
+
+const out=document.getElementById('out'),cmd=document.getElementById('cmd');
+const C={
+help:"COMMANDS\\n  help       list commands\\n  status     system status\\n  lore       character lore\\n  quests     active missions\\n  skills     attribute matrix\\n  academy    education + achievements\\n  contact    transmission channels\\n  launch     open the main nexus",
+status:"BIO CORE: ONLINE\\nCOMPUTATIONAL CORE: BUILDING\\nPYTHON: LEVEL 12/100\\nCREATIVITY: 1000/100 [OVERFLOW]\\nCOFFEE: CRITICAL\\nPhD: NOT FOUND",
+lore:"A lone molecular biologist grew up in a small village called Central University of Tamil Nadu. He wandered into bioinformatics and discovered that Python was stronger than expected. Currently gathering XP through research, coding, and questionable amounts of coffee while hunting for the legendary treasure named ONE PhD.",
+quests:"ACTIVE: RID DATABASE // THREAT HIGH\\nBOSS: PhD APPLICATIONS // DIFFICULTY LEGENDARY\\nSIDE QUESTS: Numerinator v69 | Calculator-App | Haemocytometer-Counter-App | DNA-Sequence-Composition-Analyzer | ensemble_analyser",
+skills:"MOLECULAR BIO 45 | WET LAB 69 | BIOINFORMATICS 32 | PYTHON 21 | DATA 67 | MICROBIOLOGY 48 | RESEARCH 78 | WRITING 65 | CREATIVITY 1000 | PROBLEM SOLVING: PROBLEM MAKER",
+academy:"INTEGRATED MSc IN LIFE SCIENCES — Central University of Tamil Nadu — 2024 — CGPA 8.51\\nGATE QUALIFIED\\nDISSERTATION PRESENTATION — CONSOLATION PRIZE\\nICB-24 / BioVision — 14 MARCH 2024",
+contact:"LINKEDIN: linkedin.com/in/joeljaison2025\\nGITHUB: github.com/joel-jaison-codes",
+launch:"NEXUS ONLINE. Use the top navigation to enter another screen."
+};
+function run(){let x=cmd.value.trim().toLowerCase();if(!x)return;if(x==='clear'){out.textContent='';cmd.value='';return}out.textContent+='\\n> '+x+'\\n'+(C[x]||"ERROR: UNKNOWN COMMAND. Type 'help'.")+'\\n';cmd.value='';out.scrollTop=out.scrollHeight;if(x==='launch')show('home')}
+document.getElementById('exec').onclick=run;cmd.addEventListener('keydown',e=>{if(e.key==='Enter')run()});
+</script>
