@@ -1,42 +1,47 @@
-```text
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                                                                              ║
-║   > SYSTEM BOOT SEQUENCE                                                     ║
-║                                                                              ║
-║        INITIALIZING...                                                       ║
-║                                                                              ║
-║                                                                              ║
-║    ███╗   ███╗██╗██████╗ ██╗ ██████╗██╗  ██╗                               ║
-║    ████╗ ████║██║██╔══██╗██║██╔════╝██║  ██║                               ║
-║    ██╔████╔██║██║██║  ██║██║██║     ███████║                               ║
-║    ██║╚██╔╝██║██║██║  ██║██║██║     ██╔══██║                               ║
-║    ██║ ╚═╝ ██║██║██████╔╝██║╚██████╗██║  ██║                               ║
-║    ╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝                               ║
-║                                                                              ║
-║                                                                              ║
-║              M I D I C H L O R I A N . E X E                                ║
-║                                                                              ║
-║                                                                              ║
-║        BIOLOGICAL CORE ........ ONLINE                                      ║
-║        COMPUTATIONAL CORE ..... BUILDING                                    ║
-║        NEURAL CORE ............ ONLINE                                      ║
-║        PhD PROTOCOL ........... LOCKED                                      ║
-║                                                                              ║
-║                                                                              ║
-║                         ┌──────────────────────┐                             ║
-║                         │   [ ACCESS NEXUS ]   │                             ║
-║                         └──────────────────────┘                             ║
-║                                                                              ║
-║        > CONNECTION AVAILABLE                                               ║
-║        > NEXUS://JOEL-JAISON-CODES                                          ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-```
+```html
+<div align="center">
 
-**[ ACCESS NEXUS ](https://joel-jaison-codes.github.io/joel-jaison-codes-/#home)**
+<table>
+<tr>
+<td>
 
-```
-:: ACCESS NEXUS
-:: ESTABLISHING SECURE CONNECTION...
-:: REDIRECTING TO MIDICHLORIAN.EXE...
+<pre>
+        INITIALIZING...
+
+
+ ███╗   ███╗██╗██████╗ ██╗ ██████╗██╗  ██╗
+ ████╗ ████║██║██╔══██╗██║██╔════╝██║  ██║
+ ██╔████╔██║██║██║  ██║██║██║     ███████║
+ ██║╚██╔╝██║██║██║  ██║██║██║     ██╔══██║
+ ██║ ╚═╝ ██║██║██████╔╝██║╚██████╗██║  ██║
+ ╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝ ╚═════╝╚═╝  ╚═╝
+
+
+        M I D I C H L O R I A N . E X E
+
+
+        BIOLOGICAL CORE ........ ONLINE
+        COMPUTATIONAL CORE ..... BUILDING
+        NEURAL CORE ............ ONLINE
+        PhD PROTOCOL ........... LOCKED
+
+
+</pre>
+
+<a href="https://joel-jaison-codes.github.io/joel-jaison-codes-/#home">
+<pre>
+              ┌──────────────────────┐
+              │   [ ACCESS NEXUS ]   │
+              └──────────────────────┘
+</pre>
+</a>
+
+<pre>
+</pre>
+
+</td>
+</tr>
+</table>
+
+</div>
 ```
