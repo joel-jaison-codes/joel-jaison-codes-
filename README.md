@@ -1,24 +1,29 @@
 <div align="center">
 
-<samp>
-
-<b>MIDICHLORIAN.EXE</b><br>
-GALACTIC NETWORK // SECURE TERMINAL<br>
-────────────────────────────────<br>
-> BIOLOGICAL CORE ........ <b>ONLINE</b><br>
-> COMPUTATIONAL CORE ..... <b>BUILDING</b><br>
-> NEURAL CORE ............ <b>ONLINE</b><br>
-> PhD PROTOCOL ........... <b>LOCKED</b><br>
-────────────────────────────────<br>
+<pre>
+╔══════════════════════════════════════╗
+║  MIDICHLORIAN.EXE // NEXUS TERMINAL ║
+╠══════════════════════════════════════╣
+║                                      ║
+║  &gt; INITIALIZING...                   ║
+║                                      ║
+║  BIOLOGICAL CORE ........ <b>ONLINE</b>  ║
+║  COMPUTATIONAL CORE ..... <b>ONLINE</b>  ║
+║  NEURAL CORE ............ <b>ONLINE</b>  ║
+║  PhD PROTOCOL ........... <b>LOCKED</b>  ║
+║                                      ║
+║  &gt; USER AUTHENTICATION: REQUIRED     ║
+║  &gt; NEXUS CHANNEL: AVAILABLE         ║
+║                                      ║
+╚══════════════════════════════════════╝
+</pre>
 
 <a href="https://joel-jaison-codes.github.io/joel-jaison-codes-/#home">
-<b>[ ACCESS NEXUS ]</b>
+<b>▣ &nbsp; [ ACCESS NEXUS ] &nbsp; ▣</b>
 </a>
 
-<br>
-&gt; NEXUS://MIDICHLORIAN.EXE<br>
-&gt; SYSTEM STATUS: READY
+<br><br>
 
-</samp>
+<sub><samp>MOLECULAR BIOLOGY // BIOINFORMATICS // RESEARCH</samp></sub>
 
 </div>
